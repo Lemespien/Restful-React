@@ -1,0 +1,83 @@
+/* Post cards */
+.post-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+.card-container {
+    width: 75%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+    grid-gap: 35px;
+    justify-items: center;
+}
+
+.card {
+    display: grid;
+    grid-template-rows: 75px 75px auto;
+    margin-top: 20px;
+    width: 100%;
+    background: #444d77;
+    border-radius: 8px;
+    color: rgb(211, 211, 211);
+}
+
+.card-title {
+  position: relative;
+  color: #fff;
+  width: 100%;
+  border-radius: 8px 8px 0 0;
+  background-color: black;
+  place-content: center;
+}
+
+.remove-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 8px;
+}
+
+.card-content {
+  padding: 10px;
+}
+
+/* Post Form Input */
+
+.post-form {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  color: #fff;
+}
+.post-form label {
+  display: flex;
+  flex-direction: column;
+
+}
+.post-form label h3 {
+  font-size: 1.5rem;
+  margin-right: auto;
+}
+
+.post-form label input {
+  font-size: 1.75rem;
+  height: 30px;
+  border-radius: 8px;
+}
+
+.post-form label textarea {
+  height: 150px;
+  font-size: 1.75rem;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.btn-submit {
+  color: #fff;
+  font-size: 1.5rem;
+  background: #5174b9;
+  border-radius: 8px;
+  height: 35px;
+}
