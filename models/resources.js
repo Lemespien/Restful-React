@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const Resources = new mongoose.Schema({
-    title: {
+    name: {
         type: String,
         required: true,
     },
@@ -15,6 +15,10 @@ const Resources = new mongoose.Schema({
     },
     quantity: {
         type: Number,
+        required: true,
+    },
+    shortname: {
+        type: String,
         required: true,
     },
     date: {

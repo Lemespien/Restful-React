@@ -1,0 +1,47 @@
+/* Post cards */
+.post-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+.resourceCard-container {
+    width: 75%;
+    margin: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    grid-gap: 35px;
+    justify-items: center;
+}
+
+.resourceCard {
+    font-size: 0.8rem;
+    display: grid;
+    grid-template-rows: 55px 55px auto;
+    margin-top: 20px;
+    width: 100%;
+    background: #444d77;
+    border-radius: 8px;
+    color: rgb(211, 211, 211);
+}
+
+.resourceCard-title {
+    position: relative;
+    color: #fff;
+    border-radius: 8px 8px 0 0;
+    background-color: black;
+    place-content: center;
+}
+
+.remove-btn {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 8px;
+}
+
+.resourceCard-content {
+  padding: 10px;
+  font-size: 1rem;
+}

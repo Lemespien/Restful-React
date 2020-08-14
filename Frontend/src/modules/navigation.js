@@ -2,14 +2,14 @@ import React from 'react';
 import './navigation.css';
 
 function Navigation(props) {
-    let renderstuff = [];
+    let pageLinks = [];
     props.pages.forEach(page => {
-        renderstuff.push(<li key={page}><a href={`#${page}`} >{page}</a></li>)
+        pageLinks.push(<li key={page}><a href={`#${page}`} onClick={() => props.pageChange(page)} >{page}</a></li>)
     });
 
     return (
         <ul className={"nav-ul"}>
-            {renderstuff}
+            {pageLinks}
         </ul>
     );
 }
