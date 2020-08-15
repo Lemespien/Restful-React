@@ -4,6 +4,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const postRoutes = require('./routes/postsRoute.js');
 const resourceRoutes = require('./routes/resourcesRoute.js');
+const playerRoutes = require('./routes/playerRoute.js');
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -18,8 +19,10 @@ app.use(express.urlencoded({ extended: false }));
 app.get('/ping', (req, res) => {
     return res.send('pong');
 });
+
 app.use(postRoutes);
 app.use(resourceRoutes);
+app.use(playerRoutes);
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
     console.log("Connected to DB");
