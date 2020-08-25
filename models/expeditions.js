@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Resources = require('./resources.js');
-const Players = new mongoose.Schema({
+const Expeditions = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -9,32 +9,26 @@ const Players = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    inventory: [{
+    loot_table: [{
         item: {
             type: mongoose.Schema.Types.ObjectId,
             ref: Resources
         },
-        quantity: {
+        chance: {
             type: Number,
             required: true
         }
 
     }
     ],
-    // active_expeditions: [{
-    //     expedition: {
-    //         type: mongoose.Schema.Types.ObjectId,
-    //         ref: Expeditions
-    //     },
-    //     time_left: {
-    //         type: Number,
-    //         required: true
-    //     }
-    // }],
+    duration: {
+        type: Number,
+        required: true,
+    },
     date_created: {
         type: Date,
         default: Date.now,
     }
 });
 
-module.exports = mongoose.model("Players", Players);
+module.exports = mongoose.model("Expeditions", Expeditions);

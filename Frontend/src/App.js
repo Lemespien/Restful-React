@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import Navigation from './modules/navigation.js';
 import { CardHandler } from './modules/cards.js';
-import ResourceCard from './modules/resources/resourceCard.js';
 import PlayerHandler from './modules/player/player.js';
 
 class App extends React.Component {
@@ -33,14 +32,10 @@ class App extends React.Component {
           </nav>
         </header>
         {displayPosts ? <CardHandler /> : <div></div>}
-        <ResourceCard />
+        <PlayerHandler />
       </div >
     );
   }
 }
-
-
-
-
 
 export default App;
