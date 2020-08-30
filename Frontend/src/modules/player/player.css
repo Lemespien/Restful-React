@@ -1,0 +1,25 @@
+.player-inventory {
+    display: flex;
+    color: #f7f7f7;
+    background: #282c34;
+    width: 350px;
+    flex-direction: column;
+    box-shadow: 0 0 0 2px #313853;
+    margin: auto;
+    margin-top: 1em;
+}
+.player-inventory h3 {
+    text-align: left;
+    background: #444d77;
+    justify-self: flex-start;
+    margin: 0;
+    padding: .1em 0 .1em 0.25em;
+}
+
+.inventory-table {
+    background: #353c49;
+}
+
+.inventory-table td {
+    border-right: 1px solid #868686;
+}

@@ -1,5 +1,7 @@
 import React from 'react';
 import { ProgressBar } from './resourceCard';
+import './expedition.css';
+import '../player/player.css';
 
 export class Expedition extends React.Component {
     constructor(props) {
@@ -10,7 +12,7 @@ export class Expedition extends React.Component {
             gold: 0,
             duration: 10,
             timeleft: 0,
-            loot: [["5f36ce9d7e9ca13684464b4f", 95], ["5f36ce8b7e9ca13684464b4e", 50], ["5f36cec47e9ca13684464b50", 10], ["5f36ced57e9ca13684464b51", 10], ["5f36d4c77e9ca13684464b52", 40], ["5f36d4df7e9ca13684464b53", 50], ["5f36ce237e9ca13684464b4d", 90]],
+            loot: [],
             interval: null,
             intervalTime: 1000,
         };
@@ -24,8 +26,7 @@ export class Expedition extends React.Component {
             const data = await fetch(`http://localhost:8080/expeditions/${this.state.id}`);
             const dataText = await data.json();
             const { name, gold, duration, loot_table } = dataText;
-            console.log(dataText);
-            console.log(name, gold, loot_table);
+
             if (dataText) {
                 this.setState({
                     name: name,
@@ -33,7 +34,6 @@ export class Expedition extends React.Component {
                     duration: duration,
                     loot: loot_table
                 });
-                console.log(this.state);
             }
         } catch (error) {
             console.error(error);
@@ -111,13 +111,93 @@ export class Expedition extends React.Component {
             }
             displayTimer = true;
         }
-        let timerElement = (
-            <ProgressBar text={this.state.timeleft} progress={progressBar} />
-        );
+        const tableHead = ["Resources", "Chance"];
+        let tableContent = [];
+        if (this.state.loot) {
+            this.state.loot.forEach(item => {
+                console.log(item);
+                const chance = item.chance;
+                const { name } = item.item;
+                tableContent.push([name, chance]);
+            });
+        }
+
+        const TableElement = <Table tableHead={tableHead} tableContent={tableContent} />
+        let timerElement = <ProgressBar text={this.state.timeleft} progress={progressBar} />;
         return (
             <div>
-                {collectReward ? <button onClick={this.collectReward}>Collect Reward</button> : displayTimer ? timerElement : <button onClick={this.startExpedition}>Start {this.state.name}</button>}
+                <InfoWindow title={this.state.name} windowClass={"player-inventory"} content={TableElement} />
             </div>
-        );
+        )
+        // return (
+        //     <div className={"expeditionCard"}>
+        //         <h3>{this.state.name}</h3>
+        //         <ExpeditionResourceReward resources={this.state.loot} />
+        //         {collectReward ? <button className={"expedition-btn"} onClick={this.collectReward}>Collect Reward</button> : displayTimer ? timerElement : <button className={"expedition-btn"} onClick={this.startExpedition}>Start</button>}
+        //     </div>
+        // );
     }
+}
+
+
+function ExpeditionResourceReward(props) {
+    if (props.resources) {
+        let renderstuff = [];
+        props.resources.forEach(resource => {
+            renderstuff.push(<div key={resource._id} className={"resource-row"}>
+                <p>{resource.item.name}</p>
+                <p className={"resource-chance"}>{resource.chance}%</p>
+            </div>);
+        });
+        return (renderstuff);
+    }
+    return (
+        <div>
+
+        </div>);
+}
+
+function InfoWindow(props) {
+    return (
+        <div className={props.windowClass}>
+            <h3>{props.title}</h3>
+            {props.content}
+        </div>);
+}
+
+function Table(props) {
+    return (
+        <table className={"inventory-table"}>
+            <TableHead elements={props.tableHead} />
+            <TableContent elements={props.tableContent} />
+        </table>)
+}
+
+function TableHead(props) {
+    let tHead = [];
+    props.elements.forEach(head => tHead.push(
+        <th key={head}>{head}</th>
+    ));
+
+    return (
+        <thead>
+            <tr>
+                {tHead}
+            </tr>
+        </thead>
+    )
+}
+
+function TableContent(props) {
+    let tContent = [];
+    props.elements.forEach(content => tContent.push(
+        <tr key={content[0]}>
+            {content.map(element => <td key={element}>{element}</td>)}
+        </tr>
+    ))
+    return (
+        <tbody>
+            {tContent}
+        </tbody>
+    );
 }

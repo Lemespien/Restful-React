@@ -51,43 +51,45 @@ router.post('/expeditions/', async (req, res) => {
 
 router.patch('/expeditions/:id', async (req, res) => {
     try {
-        const loot = req.body.loot;
+        const loot = req.body.loot_table;
         const expedition = await Expedtions.findOne({ _id: req.params.id })
         const lootTable = expedition.loot_table;
 
         for (let item of loot) {
-            if (item[0] === "5f36cec47e9ca13684464b50") {
-                expedition.gold += item[1];
-                continue;
-            }
             let itemExists = false;
             for (let resource of lootTable) {
-                if (resource.item == item[0]) {
-                    resource.quantity += item[1];
+                console.log(resource);
+                if (resource.item == item.item) {
+                    resource.chance = item.chance;
                     itemExists = true;
                     continue;
                 }
             }
             if (!itemExists) {
                 // add to inventory
+                console.log(item);
                 const newItem = {
                     _id: mongoose.Types.ObjectId(),
-                    item: item[0],
-                    quantity: item[1],
+                    item: item.item,
+                    chance: item.chance,
                 }
                 lootTable.push(newItem);
             }
         }
-        expedition.inventory = lootTable;
+        console.log(lootTable);
+        expedition.name = req.body.name ? req.body.name : expedition.name;
+        expedition.loot_table = lootTable;
+        expedition.duration = req.body.duration ? req.body.duration : expedition.duration;
+        expedition.gold = req.body.gold ? req.body.gold : expedition.gold;
         const updatedPlayer = await Expedtions.updateOne({ _id: req.params.id }, expedition);
         res.status(201).send({
             status: "success",
-            message: `Successfully updatedexpedition ${req.params.id}`,
+            message: `Successfully updated expedition ${req.params.id}`,
         });
 
     } catch (error) {
         console.error(error);
-        let message = `Failed to updateexpedition ${req.params.id}`;
+        let message = `Failed to update expedition ${req.params.id}`;
         if (error.message == "No match") message = `Failed to findexpedition ${req.params.id}`;
         res.status(400).send({
             status: "Failed",

@@ -1,0 +1,58 @@
+.expeditionCard {
+    display: flex;
+    font-family: Helvetica, sans-serif;
+    flex-direction: column;
+    margin-left: 25px;
+    margin-right: 25px;
+    color: white;
+    background: #444d77;
+    max-width: 150px;
+    max-height: 500px;
+    border-radius: 2px;
+}
+
+.expeditionCard h3 {
+    padding: 5px;
+    margin: 0;
+    color: black;
+    background: #758FFF;
+    border-radius: 2px 2px 0 0;
+    justify-self: flex-start;
+    align-self: flex-start;
+}
+
+
+
+.expeditionCard p {
+    margin: 0;
+    padding: 0.25em;
+}
+
+p.resource-chance {
+    margin-left: auto;
+    justify-self: flex-end;
+}
+
+.expeditionCard div {
+    margin: 0;
+}
+
+.expeditionCard div:last-of-type {
+    margin-bottom: 1em;
+}
+
+.resource-row {
+    display: flex;
+    height: 25px;
+}
+
+
+
+.expedition-btn {
+    width: 5em;
+    height: 35px;
+    background:	#FFF75C;
+    border: none;
+    border-radius: 8px;
+    margin: auto auto 1em auto;
+}
