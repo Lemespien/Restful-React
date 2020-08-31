@@ -1,5 +1,4 @@
 import React from 'react';
-import { ProgressBar } from './resourceCard';
 import './expedition.css';
 import '../player/player.css';
 
@@ -116,17 +115,20 @@ export class Expedition extends React.Component {
         if (this.state.loot) {
             this.state.loot.forEach(item => {
                 console.log(item);
-                const chance = item.chance;
+                const chance = item.chance + "%";
                 const { name } = item.item;
                 tableContent.push([name, chance]);
             });
         }
 
-        const TableElement = <Table tableHead={tableHead} tableContent={tableContent} />
-        let timerElement = <ProgressBar text={this.state.timeleft} progress={progressBar} />;
+        const tableElement = <Table tableHead={tableHead} tableContent={tableContent} />
+        const timerElement = <ProgressBar text={this.state.timeleft} progress={progressBar} />;
+        const buttonElement = collectReward ? <button className={"expedition-btn"} onClick={this.collectReward} >Collect Reward</button> : displayTimer ? timerElement : <button className={"expedition-btn"} onClick={this.startExpedition}>Start</button>
+        const content = [tableElement, buttonElement];
         return (
             <div>
-                <InfoWindow title={this.state.name} windowClass={"player-inventory"} content={TableElement} />
+                <InfoWindow title={this.state.name} windowClass={"player-inventory"} content={content} />
+
             </div>
         )
         // return (
@@ -139,6 +141,14 @@ export class Expedition extends React.Component {
     }
 }
 
+function ProgressBar(props) {
+    return (
+        <div style={{ position: "relative", top: "-1em", width: "100%", margin: "0", marginLeft: "auto", marginRight: "auto", height: "1em" }}>
+            <p style={{ background: "lightgreen", width: 100 * props.progress + "%", height: "1em" }}></p>
+            <p style={{ position: "relative", top: "-2.25em", color: "#1C8759" }}>{props.text}</p>
+        </div >
+    )
+}
 
 function ExpeditionResourceReward(props) {
     if (props.resources) {

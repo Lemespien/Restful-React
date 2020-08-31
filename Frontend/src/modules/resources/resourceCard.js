@@ -67,8 +67,8 @@ function ResourceCard(props) {
 
 export function ProgressBar(props) {
     return (
-        <div style={{ width: "250px", marginLeft: "auto", marginRight: "auto", height: "25px" }}>
-            <p style={{ background: "green", width: 250 * props.progress, height: "25px" }}></p>
+        <div style={{ width: "250px", margin: "0", marginLeft: "auto", marginRight: "auto", height: "10px" }}>
+            <p style={{ background: "green", width: 250 * props.progress, height: "10px" }}></p>
             <p style={{ position: "relative", top: "-40px", color: "#fff" }}>{props.text}</p>
         </div >
     )
